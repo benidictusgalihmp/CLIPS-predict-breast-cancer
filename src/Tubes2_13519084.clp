@@ -4,20 +4,10 @@
  ; phase start.
  ; ======================================
 
-(defrule start
-=>
-(assert (phase start)))
-
- ; ======================================
- ; defrule mean-concave-points
- ; input mean concave point from user
- ; ======================================
-
 (defrule mean-concave-points
-	(phase start)
 =>
-	(printout t "mean_concave_points? ")
-	(assert (user-select (read))))
+	(printout t "mean-concanve-points? ")
+	(assert (mean-concanve-points (read))))
 
 
 
@@ -29,11 +19,9 @@
  ; defrule worst-radius
  ; input worst radius from user
  ; ======================================
-
 (defrule worst-radius
-	()
-	(<= user-select 0.05)
-=>
-	(printout t "worst_radius? ")
-	(printout t "?user-select ?value")
-	(assert (fw-radius (read))))
+	(mean-concanve-points ?value)
+	(test (<= ?value 0.05))
+=> 
+	(printout t ?value)
+)
