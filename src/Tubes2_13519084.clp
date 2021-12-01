@@ -69,6 +69,13 @@
 	(assert (worst-radius (read)))
 )
 
+(defrule worst-perimeter
+	(mean-concave-points ?value)
+	(test (> ?value 0.05))
+=> 
+	(printout t "worst-perimeter? ")
+	(assert (worst-perimeter (read)))
+)
 
 ; ======================================
 ; 			Depth Level 2 Tree			
@@ -90,6 +97,20 @@
 	(assert (mean-texture (read)))
 )
 
+(defrule predict-worst-perimeter
+	(worst-perimeter ?value)
+	(test (> ?value 114.45))
+=> 
+	(assert (prediction 0))
+)
+
+(defrule worst-texture-right
+	(worst-perimeter ?value)
+	(test (<= ?value 114.45))
+=> 
+	(printout t "worst-texture? ")
+	(assert (worst-texture-right (read)))
+)
 
 ; ======================================
 ; 			Depth Level 3 Tree			
@@ -102,6 +123,25 @@
 	(assert (prediction 1))
 )
 
+(defrule perimeter-error
+	(worst-texture-right ?value)
+	(test (> ?value 25.65))
+=> 
+	(printout t "perimeter-error? ")
+	(assert (perimeter-error (read)))
+)
+
+; ======================================
+; 			Depth Level 4 Tree			
+; ======================================
+
+(defrule predict-perimeter-error
+	(perimeter-error ?value)
+	(test (> ?value 1.56))
+=> 
+	(assert (prediction 0))
+)
+
 ; ******* End of Leaf Node Rule ********
 ; **************************************
 
@@ -111,6 +151,22 @@
 => 
 	(printout t "concave-points-error? ")
 	(assert (concave-points-error (read)))
+)
+
+(defrule worst-concave-points
+	(worst-texture-right ?value)
+	(test (<= ?value 25.65))
+=> 
+	(printout t "worst-concave-points? ")
+	(assert (worst-concave-points (read)))
+)
+
+(defrule mean-radius-right
+	(perimeter-error ?value)
+	(test (<= ?value 1.56))
+=> 
+	(printout t "mean-radius? ")
+	(assert (mean-radius-right (read)))
 )
 
 
@@ -131,6 +187,38 @@
 => 
 	(assert (prediction 0))
 )
+
+(defrule yes-worst-concave-points
+	(worst-concave-points ?value)
+	(test (<= ?value 0.17))
+=> 
+	(assert (prediction 1))
+)
+
+(defrule no-worst-concave-points
+	(worst-concave-points ?value)
+	(test (> ?value 0.17))
+=> 
+	(assert (prediction 0))
+)
+
+; ======================================
+; 			Depth Level 5 Tree			
+; ======================================
+
+(defrule yes-mean-radius-right
+	(mean-radius-right ?value)
+	(test (> ?value 13.34))
+=> 
+	(assert (prediction 1))
+)
+
+(defrule no-mean-radius-right
+	(mean-radius-right ?value)
+	(test (<= ?value 13.34))
+=> 
+	(assert (prediction 0))
+)
+
 ; ******* End of Leaf Node Rule ********
 ; **************************************
-
