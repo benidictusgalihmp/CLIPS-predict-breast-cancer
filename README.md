@@ -11,7 +11,7 @@ Predict breast cancer using CLIPS decision tree
 -   [Code Examples](#code-examples)
 -   [Status](#status)
 -   [Inspiration](#inspiration)
--   [Contact](#contact)
+-   [Author](#author)
 
 ## General info
 
@@ -30,14 +30,12 @@ Predict breast cancer using CLIPS decision tree. This project was created to com
 -   Install CLIPS IDE version 6.4
 -   Clone this repo into your computer
 -   Open CLIPS IDE and click on tab **Environment > Load Constructs...**
--   Open this .clp file you have cloned from repo
+-   Open `.clp` file in cloned folder from this repo
 -   Type command `(reset)` then `(run)` to run this program
 
-> **IMPORTANT!** you need to type the command manually or the program will not run
+> **IMPORTANT!** You need to type the command manually or the program will not run
 
 ## Code Examples
-
-Show examples of usage:
 
 -   `(facts)` - list all facts from memory
 -   `(rules)` - list all rules from memory
@@ -46,13 +44,13 @@ Show examples of usage:
 
 ## Status
 
-Project is: _in progress_
+Project is: _finished_
 
 ## Inspiration
 
 Project inspired by IF3170 Artificial Intelligence project assignment, based on documentation prepared by Graphics and Artificial Intelligence Laboratory Assistant.
 
-## Contact
+## Author
 
 -   Benidictus Galih Mahar Putra
 -   Made Kharisma Jagaddhita
