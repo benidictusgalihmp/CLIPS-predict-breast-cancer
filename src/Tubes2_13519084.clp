@@ -116,6 +116,22 @@
 ; 			Depth Level 3 Tree			
 ; ======================================
 
+(defrule worst-texture-left
+	(radius-error ?value)
+	(test (<= ?value 0.63))
+=>
+	(printout t "worst-texture? ")
+	(assert (worst-texture-left (read)))
+)
+
+(defrule mean-smoothness
+	(radius-error ?value)
+	(test (> ?value 0.63))
+=>
+	(printout t "mean-smoothness? ")
+	(assert (mean-smoothness (read)))
+)
+
 (defrule predict-mean-texture
 	(mean-texture ?value)
 	(test (<= ?value 16.19))
@@ -174,6 +190,35 @@
 ; 			Depth Level 4 Tree			
 ; ======================================
 
+(defrule predict-worst-texture
+	(worst-texture-left ?value)
+	(test (<= ?value 30.15))
+=>
+	(assert (prediction 1))
+)
+
+(defrule worst-area
+	(worst-texture-left ?value)
+	(test (> ?value 30.15))
+=>
+	(printout t "worst-area? ")
+	(assert (worst-area (read)))
+)
+
+(defrule yes-mean-smoothness
+	(mean-smoothness ?value)
+	(test (<= ?value 0.09))
+=>
+	(assert (prediction 1))
+)
+
+(defrule no-mean-smoothness
+	(mean-smoothness ?value)
+	(test (> ?value 0.09))
+=>
+	(assert (prediction 0))
+)
+
 (defrule yes-concave-points-error
 	(concave-points-error ?value)
 	(test (> ?value 0.01))
@@ -206,6 +251,21 @@
 ; 			Depth Level 5 Tree			
 ; ======================================
 
+(defrule predict-worst-area
+	(worst-area ?value)
+	(test (<= ?value 641.60))
+=>
+	(assert (prediction 1))
+)
+
+(defrule mean-radius-left
+	(worst-area ?value)
+	(test (> ?value 641.60))
+=>
+	(printout t "mean-radius? ")
+	(assert (mean-radius-left (read)))
+)
+
 (defrule yes-mean-radius-right
 	(mean-radius-right ?value)
 	(test (> ?value 13.34))
@@ -222,3 +282,40 @@
 
 ; ******* End of Leaf Node Rule ********
 ; **************************************
+
+; ======================================
+; 			Depth Level 6 Tree
+; ======================================
+
+(defrule predict-mean-radius-left
+	(mean-radius-left ?value)
+	(test (> ?value 13.45))
+=>
+	(assert (prediction 1))
+)
+
+(defrule mean-texture-bottom
+	(mean-radius-left ?value)
+	(test (<= ?value 13.45))
+=>
+	(printout t "mean-texture? ")
+	(assert (mean-texture-bottom (read)))
+)
+
+; ======================================
+; 			Depth Level 7 Tree
+; ======================================
+
+(defrule yes-mean-texture-bottom
+	(mean-texture-bottom ?value)
+	(test (> ?value 28.79))
+=>
+	(assert (prediction 1))
+)
+
+(defrule no-mean-texture-bottom
+	(mean-texture-bottom ?value)
+	(test (<= ?value 28.79))
+=>
+	(assert (prediction 0))
+)
